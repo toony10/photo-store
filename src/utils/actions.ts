@@ -3,8 +3,6 @@
 import { createClient } from './supabase/supabaseServer';
 import { redirect } from 'next/navigation';
 
-const supabase = await createClient();
-
 export async function signUp(
   prevState: { success: boolean; message?: string } | undefined,
   formData: FormData,
@@ -12,6 +10,7 @@ export async function signUp(
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
+  const supabase = await createClient();
   const { error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
@@ -27,6 +26,7 @@ export async function signIn(
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
+  const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -40,6 +40,7 @@ export async function signIn(
 }
 
 export async function AuthWithGoogle() {
+  const supabase = await createClient();
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
