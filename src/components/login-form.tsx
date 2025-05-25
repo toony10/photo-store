@@ -76,7 +76,7 @@ export function LoginForm({
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  { isNewUser ?
+                  {/* { isNewUser ?
                     ''
                     :
                     <a
@@ -85,9 +85,9 @@ export function LoginForm({
                     >
                       Forgot your password?
                     </a>
-                  }
+                  } */}
                   {/* <GoogleAuthBtn /> */ }
-                  <Button
+                  {/* <Button
                     type="button"
                     variant="outline"
                     className="w-full"
@@ -102,7 +102,7 @@ export function LoginForm({
                     } }
                   >
                     { isNewUser ? 'Sign up with Google' : 'Login with Google' }
-                  </Button>
+                  </Button> */}
                 </div>
                 <Input
                   id="password"
