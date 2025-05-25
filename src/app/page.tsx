@@ -1,7 +1,9 @@
-import Image from "next/image";
+import SignOutBtn from '../components/signOutBtn';
 
 export default function Home() {
   return (
-    <main>Hello</main>
+    <main>
+      <SignOutBtn />
+    </main>
   );
 }

@@ -15,8 +15,6 @@ import Loader from "./Loader";
 import { signIn, signUp, AuthWithGoogle } from "@/utils/actions";
 import { useEffect } from "react";
 
-
-
 export function LoginForm({
   className,
   ...props
@@ -36,8 +34,6 @@ export function LoginForm({
     }
   }, [signUpState, isNewUser]);
 
-  // Show verification message if signup was successful
-  const showVerificationNotice = isNewUser && signUpState?.success;
 
   // SinIn
   const [signInState, signInAction, signInPending] = useActionState(
@@ -90,7 +86,23 @@ export function LoginForm({
                       Forgot your password?
                     </a>
                   }
-
+                  {/* <GoogleAuthBtn /> */ }
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={ async () => {
+                      try {
+                        const url = await AuthWithGoogle();
+                        window.location.href = url;
+                      } catch (error) {
+                        console.error("Google Sign-In failed", error);
+                        // ممكن تعرض رسالة للمستخدم هنا
+                      }
+                    } }
+                  >
+                    { isNewUser ? 'Sign up with Google' : 'Login with Google' }
+                  </Button>
                 </div>
                 <Input
                   id="password"
@@ -103,21 +115,12 @@ export function LoginForm({
                   <Button type="submit" className="w-full cursor-pointer ">
                     { signUpPending ? <Loader word="Loading" /> : 'Sign up' }
                   </Button>
-                  <form action={ AuthWithGoogle }>
-                    <Button type="submit" variant="outline" className="w-full">
-                      Sign up with Google
-                    </Button>
-                  </form>
                   { showMsg && <div>please check your email to verification</div> }
                 </div>
                 :
                 <div className="flex flex-col gap-3">
                   <Button type="submit" className="w-full">
                     { signInPending ? <Loader word="Loading..." /> : 'Sign in' }
-
-                  </Button>
-                  <Button variant="outline" className="w-full">
-                    Login with Google
                   </Button>
                 </div>
               }

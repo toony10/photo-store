@@ -41,10 +41,17 @@ export async function signIn(
 
 export async function AuthWithGoogle() {
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithOAuth({
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `/`,
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/`, // تأكد من ضبط هذا في .env
     },
   });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data.url; // نرجع رابط التوجيه
 }
